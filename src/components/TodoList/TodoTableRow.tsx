@@ -1,4 +1,4 @@
-import React, {EventHandler, MouseEventHandler, useEffect, useState} from "react";
+import React, {useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTrash} from '@fortawesome/free-solid-svg-icons'
 import {TaskEntity} from "types";
@@ -17,8 +17,8 @@ export const TodoTableRow = (props: Props) => {
     const [loading, setLoading] = useState<boolean>(false);
     const {task, id} = props.task;
 
-    const deleteTask = async (e: any) => {
-        e.preventDefault();
+    const deleteTask = async (e: React.MouseEvent) => {
+
         if (!window.confirm(`Czy napewno chcesz usunąć zadanie nr ${props.index + 1}`)) {
             return;
         }
