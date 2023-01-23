@@ -2,6 +2,7 @@ import React from 'react';
 import {TodoTableRow} from "./TodoTableRow";
 import {AddTask} from "../AddTask/AddTask";
 import {TaskEntity} from 'types';
+import {LogoutBtn} from "../Login/LogoutBtn";
 
 
 interface Props {
@@ -12,17 +13,22 @@ interface Props {
 
 export const TodoTable = (props: Props) => {
     return (
-        <table>
-            <thead>
-            <tr>
-                <th className='id'>Lp</th>
-                <th className='title'>Tytuł</th>
+        <table className='table'>
+            <thead className='box'>
+            <tr className='line'>
+                <th className='id'>Id</th>
+                <th className='title'>Title</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody className='box'>
             {props.list.map((task, index) => <TodoTableRow task={task} index={index} key={task.id} onChangeList={props.onChangeList}/>)}
-            <tr>
+            <tr className='line'>
                 <td className="form"><AddTask onChangeList={props.onChangeList}/></td>
+            </tr>
+            <tr className='line'>
+                <td className='logout'>
+                <LogoutBtn/>
+                </td>
             </tr>
             </tbody>
         </table>
