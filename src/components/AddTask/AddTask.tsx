@@ -3,6 +3,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCircleUp} from '@fortawesome/free-solid-svg-icons';
 import {TaskCreate} from "types";
 import {Spinner} from "../../common/Spinner/Spinner";
+import Cookies from "js-cookie";
 
 interface Props {
     onChangeList: () => void;
@@ -15,6 +16,7 @@ export const AddTask = (props: Props) => {
         task: '',
     });
     const [loading, setLoading] = useState<boolean>(false);
+    const token = Cookies.get('access_token');
 
     const sendForm = async (e: FormEvent) => {
         e.preventDefault();
@@ -23,9 +25,11 @@ export const AddTask = (props: Props) => {
             const res = await fetch('http://localhost:3001/list', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(task),
+                credentials: 'include',
             })
             props.onChangeList();
             await res.json();
@@ -47,14 +51,14 @@ export const AddTask = (props: Props) => {
         <form onSubmit={sendForm}>
             <input
                 type="text"
-                placeholder="Dodaj zadanie"
+                placeholder="Add task"
                 value={task.task}
                 onChange={e => setTask({
                     ...task,
                     task: e.target.value
                 })}
             />
-            <button type="submit"><FontAwesomeIcon icon={faCircleUp}/></button>
+            <button type="submit" className='submit'><FontAwesomeIcon icon={faCircleUp}/></button>
         </form>
 
 
