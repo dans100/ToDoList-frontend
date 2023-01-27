@@ -18,8 +18,9 @@ h2 {
     margin: 0 auto;
     width: 80%;
     max-width: 800px;
-    box-shadow: 0 0 2px black;
+    box-shadow: 0 1px 8px black;
     background-color: #1E1A3C;
+    border-radius: 12px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -75,8 +76,7 @@ td.title svg {
     position: absolute;
     height: 20px;
     right: 30px;
-    top: 50%;
-    transform: translateY(-50%);
+    transform: translateY(50%);
 }
 
 td.form {
@@ -115,7 +115,7 @@ td.title svg {
 }
 
 td.title svg:hover {
-    transform: rotate(45deg);
+    animation: rotate .2s linear;
 }
 
 td.logout {
@@ -140,4 +140,15 @@ button.login:hover {
     background-color: #fff;
     color: #000;
     transform: scale(1.05);
+}
+
+@keyframes rotate {
+    0% {
+        transform: translateY(50%) rotate(25deg);
+    }
+
+    100% {
+        transform: translateY(50%) rotate(-25deg);
+    }
+
 }
