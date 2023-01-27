@@ -13,6 +13,6 @@
 
 <p>3. npm start</p>
 
-<p>login: admin
+<p>login: admin@a.com
    password: admin
 <p>
