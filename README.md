@@ -12,3 +12,7 @@
 <p>2. npm install</p>
 
 <p>3. npm start</p>
+
+<p>login: admin
+   password: admin
+<p>
