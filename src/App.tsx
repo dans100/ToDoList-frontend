@@ -13,7 +13,7 @@ export const App = () => {
 
         <Routes>
             <Route path='/list' element={<TodoListView/>}/>
-            <Route path='/login' element={<Login/>}/>
+            <Route path='/' element={<Login/>}/>
             <Route path='/*' element={<NotFoundView/>}/>
         </Routes>
     );

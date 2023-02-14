@@ -4,6 +4,7 @@ import {faTrash} from '@fortawesome/free-solid-svg-icons'
 import {TaskEntity} from "types";
 import {Spinner} from "../../common/Spinner/Spinner";
 import Cookies from "js-cookie";
+import {apiURL} from "../../config/api";
 
 
 interface Props {
@@ -26,7 +27,7 @@ export const TodoTableRow = (props: Props) => {
         }
         try {
             setLoading(true);
-            const res = await fetch(`http://localhost:3001/list/${id}`, {
+            const res = await fetch(`${apiURL}/list/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',

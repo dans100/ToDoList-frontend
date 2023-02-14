@@ -4,6 +4,7 @@ import {faCircleUp} from '@fortawesome/free-solid-svg-icons';
 import {TaskCreate} from "types";
 import {Spinner} from "../../common/Spinner/Spinner";
 import Cookies from "js-cookie";
+import {apiURL} from "../../config/api";
 
 interface Props {
     onChangeList: () => void;
@@ -22,7 +23,7 @@ export const AddTask = (props: Props) => {
         e.preventDefault();
         setLoading(true);
         try {
-            const res = await fetch('http://localhost:3001/list', {
+            const res = await fetch(`${apiURL}/list`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

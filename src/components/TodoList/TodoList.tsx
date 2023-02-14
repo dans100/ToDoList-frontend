@@ -4,6 +4,7 @@ import {TodoTable} from "./TodoTable";
 import { TaskEntity } from 'types';
 import {Spinner} from "../../common/Spinner/Spinner";
 import Cookies from "js-cookie";
+import {apiURL} from "../../config/api";
 
 
 
@@ -14,7 +15,7 @@ export const TodoList = () => {
     const refreshList = async () => {
         setList(null);
         try {
-            const res = await fetch('http://localhost:3001/list', {
+            const res = await fetch(`${apiURL}/list`, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`,
