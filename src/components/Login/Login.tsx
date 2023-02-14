@@ -1,6 +1,7 @@
 import React, {ChangeEvent, FormEvent, useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import Cookies from 'js-cookie';
+import {apiURL} from "../../config/api";
 
 export const Login = () => {
 
@@ -15,7 +16,7 @@ export const Login = () => {
 
     useEffect(() => {
         (async () => {
-            const response = await fetch('http://localhost:3001/login', {
+            const response = await fetch(`${apiURL}/login`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -34,7 +35,7 @@ export const Login = () => {
     const sendForm = async (e: FormEvent) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:3001/login', {
+            const response = await fetch(`${apiURL}/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

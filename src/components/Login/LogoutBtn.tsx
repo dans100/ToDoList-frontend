@@ -9,7 +9,7 @@ export const LogoutBtn = () => {
 
     const handleClick = async () => {
         await Cookies.remove('access_token');
-        navigate('/login');
+        navigate('/');
     }
 
     return (
