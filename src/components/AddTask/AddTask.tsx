@@ -5,6 +5,7 @@ import {TaskCreate} from "types";
 import {Spinner} from "../../common/Spinner/Spinner";
 import Cookies from "js-cookie";
 import {apiURL} from "../../config/api";
+import {ErrorModal} from "../../common/ErrorModal/ErrorModal";
 
 interface Props {
     onChangeList: () => void;
@@ -17,6 +18,7 @@ export const AddTask = (props: Props) => {
         task: '',
     });
     const [loading, setLoading] = useState<boolean>(false);
+    const [error, setError] = useState<string>('');
     const token = Cookies.get('access_token');
 
     const sendForm = async (e: FormEvent) => {
@@ -35,33 +37,30 @@ export const AddTask = (props: Props) => {
             props.onChangeList();
             await res.json();
 
-        } finally {
+        } catch (e) {
+            setError('Error occurred on server on task add')
+        }
+        finally {
             setLoading(false);
         }
     }
-    if (loading) {
-
-        return (<>
-                <Spinner/>
-            </>
-        )
-    }
 
     return (
-
-        <form onSubmit={sendForm}>
-            <input
-                type="text"
-                placeholder="Add task"
-                value={task.task}
-                onChange={e => setTask({
-                    ...task,
-                    task: e.target.value
-                })}
-            />
-            <button type="submit" className='submit'><FontAwesomeIcon icon={faCircleUp}/></button>
-        </form>
-
-
+        <>
+            {error && <ErrorModal onConfirm={() => setError('')} title='Invalid task add' message={error}/>}
+            {loading && <Spinner/>}
+            <form onSubmit={sendForm}>
+                <input
+                    type="text"
+                    placeholder="Add task"
+                    value={task.task}
+                    onChange={e => setTask({
+                        ...task,
+                        task: e.target.value
+                    })}
+                />
+                <button type="submit" className='submit'><FontAwesomeIcon icon={faCircleUp}/></button>
+            </form>
+        </>
     )
 }

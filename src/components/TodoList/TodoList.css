@@ -33,6 +33,7 @@ body {
 }
 
 .line {
+    position: relative;
     display: flex;
     justify-content: space-around;
     margin-bottom: 10px;
@@ -71,6 +72,17 @@ td.title svg {
     height: 20px;
     right: 30px;
     transform: translateY(50%);
+}
+
+.show-pwd {
+    position: absolute;
+    height: 2rem;
+    width: 2rem;
+    font-size: 1.3rem;
+    top: 55%;
+    right: 20%;
+    background: transparent;
+    border-style: none;
 }
 
 td.form {

@@ -5,15 +5,18 @@ import { TaskEntity } from 'types';
 import {Spinner} from "../../common/Spinner/Spinner";
 import Cookies from "js-cookie";
 import {apiURL} from "../../config/api";
+import {ErrorModal} from "../../common/ErrorModal/ErrorModal";
 
 
 
 export const TodoList = () => {
-    const [list, setList] = useState<TaskEntity[] | null>(null);
+    const [list, setList] = useState<TaskEntity[]>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [error, setError] = useState<string>('');
     const token = Cookies.get('access_token');
 
     const refreshList = async () => {
-        setList(null);
+        setIsLoading(true);
         try {
             const res = await fetch(`${apiURL}/list`, {
                 headers: {
@@ -24,23 +27,26 @@ export const TodoList = () => {
             });
             const data = await res.json();
             setList(data);
+            setIsLoading(false);
         } catch (e) {
-            console.error(e);
+            setError('Error occurred by get api data');
+        } finally {
+            setIsLoading(false);
         }
     };
+
 
  useEffect(() => {
          refreshList();
 
  }, []);
 
- if(list === null) {
-     return (
-         <Spinner/>
-     )
- }
     return (
+        <>
+            {error && <ErrorModal onConfirm={() => setError('')} title={'Invalid API Response'} message={error}/>}
+            {isLoading && <Spinner/>}
             <TodoTable list={list} onChangeList={refreshList}/>
-
+        </>
     )
 }
+
