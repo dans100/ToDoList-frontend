@@ -66,6 +66,11 @@ export const Login = () => {
         } else {
             setError(data.message)
         }
+
+        setLoginData({
+            email: '',
+            password: ''
+        });
     }
 
     const change = (e: ChangeEvent<HTMLInputElement>) => {

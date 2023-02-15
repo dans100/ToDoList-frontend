@@ -43,6 +43,10 @@ export const AddTask = (props: Props) => {
         finally {
             setLoading(false);
         }
+
+        setTask({
+            task: '',
+        });
     }
 
     return (
