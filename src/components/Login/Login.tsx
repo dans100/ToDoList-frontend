@@ -40,7 +40,7 @@ export const Login = () => {
 
         if (loginData.password.trim().length === 0 || loginData.email.trim().length === 0) {
             setError("Please enter a valid email and password (non-empty values).");
-            return
+            return;
         }
 
         const response = await fetch(`${apiURL}/login`, {
@@ -69,7 +69,6 @@ export const Login = () => {
     if (isLogged) {
         navigate('/list');
     }
-
 
     return (
         <>

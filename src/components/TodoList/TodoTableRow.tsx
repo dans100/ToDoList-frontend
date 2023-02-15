@@ -5,6 +5,7 @@ import {TaskEntity} from "types";
 import {Spinner} from "../../common/Spinner/Spinner";
 import Cookies from "js-cookie";
 import {apiURL} from "../../config/api";
+import {ErrorModal} from "../../common/ErrorModal/ErrorModal";
 
 
 interface Props {
@@ -17,6 +18,7 @@ interface Props {
 export const TodoTableRow = (props: Props) => {
 
     const [loading, setLoading] = useState<boolean>(false);
+    const [error, setError] = useState<string>('');
     const {task, id} = props.task;
     const token = Cookies.get('access_token');
 
@@ -35,22 +37,24 @@ export const TodoTableRow = (props: Props) => {
                 },
                 credentials: 'include',
             });
-            setLoading(false);
             props.onChangeList();
             await res.json();
         } catch (e) {
-            console.error(e);
+            setError('Error occurred on server on task delete');
+        } finally {
+            setLoading(false);
         }
-    }
-    if (loading) {
-        return <Spinner/>
     }
 
     return (
-        <tr className='line'>
-            <td className='id'>{props.index + 1}</td>
-            <td className='title'>{task}<FontAwesomeIcon icon={faTrash} onClick={deleteTask}/></td>
-        </tr>
+        <>
+            {error && <ErrorModal onConfirm={()=> setError('')} title={'Invalid task delete'} message={error}/>}
+            {loading && <Spinner/>}
+            <tr className='line'>
+                <td className='id'>{props.index + 1}</td>
+                <td className='title'>{task}<FontAwesomeIcon icon={faTrash} onClick={deleteTask}/></td>
+            </tr>
+        </>
     )
 }
 
