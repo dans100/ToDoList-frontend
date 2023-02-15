@@ -1,21 +1,34 @@
 import React from "react";
 import {useNavigate} from "react-router-dom";
-import Cookies from "js-cookie";
+import {apiURL} from "../../config/api";
 
 
 
 export const LogoutBtn = () => {
     const navigate = useNavigate();
 
-    const handleClick = async () => {
-        await Cookies.remove('access_token');
-        navigate('/');
+    const Logout = async () => {
+
+        const response = await fetch(`${apiURL}/logout`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({}),
+            credentials: 'include',
+        });
+        if (response.status === 204) {
+            navigate('/');
+        } else {
+            navigate('/list');
+        }
     }
+
 
     return (
         <button
             className='login'
-            onClick={handleClick}>
+            onClick={Logout}>
             Logout
         </button>
     )
