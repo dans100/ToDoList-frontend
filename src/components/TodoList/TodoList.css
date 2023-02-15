@@ -8,14 +8,8 @@ body {
     background: linear-gradient(to right, #ff0000, #ffff00);
 }
 
-h2 {
-    margin: 50px auto;
-    text-align: center;
-    text-transform: uppercase;
-}
-
 .table {
-    margin: 0 auto;
+    margin: 10vh auto;
     width: 80%;
     max-width: 800px;
     box-shadow: 0 1px 8px black;
@@ -136,7 +130,19 @@ button.login {
     flex-basis: 40%;
 }
 
-button.login:hover {
+button.confirm {
+    line-height: 40px;
+    text-decoration: none;
+    color: white;
+    border-radius: 12px;
+    background-color: #3E3364;
+    cursor: pointer;
+    transition: .2s;
+    border-style: none;
+    flex-basis: 30%;
+}
+
+button.login:hover, button.confirm:hover {
     background-color: #fff;
     color: #000;
     transform: scale(1.05);
