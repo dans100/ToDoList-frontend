@@ -125,7 +125,6 @@ export const Login = () => {
                     </p>
                 </div>
             </form>
-
         </>
     )
 }
