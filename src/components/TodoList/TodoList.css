@@ -9,7 +9,7 @@ body {
 }
 
 .table {
-    margin: 10vh auto;
+    margin: 20vh auto;
     width: 80%;
     max-width: 800px;
     box-shadow: 0 1px 8px black;
@@ -37,6 +37,8 @@ body {
     display: flex;
     justify-content: space-around;
     margin-bottom: 10px;
+    max-width: 100%;
+
 }
 
 th.id, td.id {
@@ -46,6 +48,10 @@ th.id, td.id {
 
 th.title, td.title, label {
     flex-basis: 70%;
+    overflow-x: hidden;
+    max-width: 100%;
+
+
 }
 
 td.title {
@@ -105,6 +111,7 @@ input {
     line-height: 40px;
     padding: 0 60px 0 10px;
     color: white;
+    border-style: none;
 }
 
 button.submit {

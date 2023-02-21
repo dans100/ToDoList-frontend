@@ -6,6 +6,7 @@ import {Spinner} from "../../common/Spinner/Spinner";
 import Cookies from "js-cookie";
 import {apiURL} from "../../config/api";
 import {ErrorModal} from "../../common/ErrorModal/ErrorModal";
+import {Header} from "../Layout/Header";
 
 
 
@@ -45,6 +46,7 @@ export const TodoList = () => {
         <>
             {error && <ErrorModal onConfirm={() => setError('')} title={'Invalid API Response'} message={error}/>}
             {isLoading && <Spinner/>}
+            <Header/>
             <TodoTable list={list} onChangeList={refreshList}/>
         </>
     )
