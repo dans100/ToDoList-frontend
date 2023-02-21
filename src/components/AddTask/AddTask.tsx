@@ -23,7 +23,7 @@ export const AddTask = (props: Props) => {
 
     const sendForm = async (e: FormEvent) => {
         e.preventDefault();
-        if(task.task.length < 3 || task.task.length > 250) {
+        if(task.task.length < 3 || task.task.length > 55) {
             setError('Task cannot be more than 3 characters and later than 250 characters');
             return;
         }
@@ -62,6 +62,7 @@ export const AddTask = (props: Props) => {
                     type="text"
                     placeholder="Add task"
                     value={task.task}
+                    maxLength={55}
                     onChange={e => setTask({
                         ...task,
                         task: e.target.value

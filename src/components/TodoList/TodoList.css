@@ -37,26 +37,29 @@ body {
     display: flex;
     justify-content: space-around;
     margin-bottom: 10px;
-    max-width: 100%;
+    align-items: center;
 
 }
 
 th.id, td.id {
     flex-basis: 20%;
-    overflow: hidden;
+    overflow-x: auto;
+    white-space: pre-line;
+    word-wrap: break-word;
 }
 
 th.title, td.title, label {
+    padding: 0 .5rem;
     flex-basis: 70%;
-    overflow-x: hidden;
-    max-width: 100%;
-
-
+    /*overflow-x: hidden;*/
+    max-width: 70%;
+    overflow-x: auto;
+    white-space: pre-line;
+    word-wrap: break-word;
 }
 
 td.title {
-    /*display: flex;*/
-    /*justify-content: center;*/
+
     position: relative;
     cursor: pointer;
     transition: .2s;
@@ -100,6 +103,7 @@ td.title svg.pen {
 
 td.form {
     flex-basis: 80%;
+    margin-top: 2rem;
 }
 
 
@@ -143,8 +147,6 @@ td.logout {
 }
 
 button.login {
-    width: 100%;
-    height: 100%;
     line-height: 40px;
     text-decoration: none;
     color: white;
@@ -153,7 +155,7 @@ button.login {
     cursor: pointer;
     transition: .2s;
     border-style: none;
-    flex-basis: 40%;
+    width: 30%;
 }
 
 button.confirm {

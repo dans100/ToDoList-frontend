@@ -81,6 +81,7 @@ export const Login = () => {
     }
 
     const handleTogglePassword = (e: React.MouseEvent) => {
+
         e.preventDefault();
         isPwdVisible ? setIsPwdVisible(false) : setIsPwdVisible(true);
     }
