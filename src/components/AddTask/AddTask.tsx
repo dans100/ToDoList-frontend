@@ -6,6 +6,7 @@ import {Spinner} from "../../common/Spinner/Spinner";
 import Cookies from "js-cookie";
 import {apiURL} from "../../config/api";
 import {ErrorModal} from "../../common/ErrorModal/ErrorModal";
+import {useNavigate} from "react-router-dom";
 
 interface Props {
     onChangeList: () => void;
@@ -20,9 +21,14 @@ export const AddTask = (props: Props) => {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string>('');
     const token = Cookies.get('access_token');
+    const navigate = useNavigate();
 
     const sendForm = async (e: FormEvent) => {
         e.preventDefault();
+        if(task.task.length < 3 || task.task.length > 55) {
+            setError('Task cannot be more than 3 characters and later than 55 characters');
+            return;
+        }
         setLoading(true);
         try {
             const res = await fetch(`${apiURL}/list`, {
@@ -34,8 +40,12 @@ export const AddTask = (props: Props) => {
                 body: JSON.stringify(task),
                 credentials: 'include',
             })
-            props.onChangeList();
-            await res.json();
+            if (res.status === 401) {
+                navigate('/');
+            } else {
+                props.onChangeList();
+                await res.json();
+            }
 
         } catch (e) {
             setError('Error occurred on server on task add')
@@ -43,6 +53,10 @@ export const AddTask = (props: Props) => {
         finally {
             setLoading(false);
         }
+
+        setTask({
+            task: '',
+        });
     }
 
     return (
@@ -54,6 +68,7 @@ export const AddTask = (props: Props) => {
                     type="text"
                     placeholder="Add task"
                     value={task.task}
+                    maxLength={55}
                     onChange={e => setTask({
                         ...task,
                         task: e.target.value

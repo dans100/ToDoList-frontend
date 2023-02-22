@@ -66,6 +66,11 @@ export const Login = () => {
         } else {
             setError(data.message)
         }
+
+        setLoginData({
+            email: '',
+            password: ''
+        });
     }
 
     const change = (e: ChangeEvent<HTMLInputElement>) => {
@@ -76,6 +81,7 @@ export const Login = () => {
     }
 
     const handleTogglePassword = (e: React.MouseEvent) => {
+
         e.preventDefault();
         isPwdVisible ? setIsPwdVisible(false) : setIsPwdVisible(true);
     }
@@ -120,7 +126,6 @@ export const Login = () => {
                     </p>
                 </div>
             </form>
-
         </>
     )
 }

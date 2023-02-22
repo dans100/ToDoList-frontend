@@ -1,15 +1,21 @@
 * {
     margin: 0;
     padding: 0;
-    font-family: Arial;
+    font-family: Arial, serif;
 }
 
-body {
-    background: linear-gradient(to right, #ff0000, #ffff00);
+html {
+    background-image: url("../../assets/background.png");
+    background-repeat: repeat;
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+
+
 }
 
 .table {
-    margin: 10vh auto;
+    margin: 20vh auto;
     width: 80%;
     max-width: 800px;
     box-shadow: 0 1px 8px black;
@@ -37,18 +43,29 @@ body {
     display: flex;
     justify-content: space-around;
     margin-bottom: 10px;
+    align-items: center;
+
 }
 
 th.id, td.id {
     flex-basis: 20%;
-    overflow: hidden;
+    overflow-x: auto;
+    white-space: pre-line;
+    word-wrap: break-word;
 }
 
 th.title, td.title, label {
+
     flex-basis: 70%;
+    max-width: 70%;
+    overflow-x: auto;
+    white-space: pre-line;
+    word-wrap: break-word;
 }
 
 td.title {
+
+    position: relative;
     cursor: pointer;
     transition: .2s;
 }
@@ -69,9 +86,13 @@ th, td {
 
 td.title svg {
     position: absolute;
-    height: 20px;
-    right: 30px;
+    height: 1.2rem;
+    right: 2rem;
     transform: translateY(50%);
+}
+
+td.title svg.pen {
+    right: 4rem;
 }
 
 .show-pwd {
@@ -87,6 +108,7 @@ td.title svg {
 
 td.form {
     flex-basis: 80%;
+    margin-top: 2rem;
 }
 
 
@@ -94,10 +116,11 @@ input {
     box-sizing: border-box;
     width: 100%;
     background-color: #3E3364;
-    border-radius: 12px;
+    border-radius: 11px;
     line-height: 40px;
     padding: 0 60px 0 10px;
     color: white;
+    border: 2px solid #1E1A3C;
 }
 
 button.submit {
@@ -105,7 +128,7 @@ button.submit {
     right: 20px;
     top: 50%;
     transform: translateY(-50%);
-    font-size: 30px;
+    font-size: 1.8rem;
     border: none;
     background-color: #3E3364;
     cursor: pointer;
@@ -129,8 +152,6 @@ td.logout {
 }
 
 button.login {
-    width: 100%;
-    height: 100%;
     line-height: 40px;
     text-decoration: none;
     color: white;
@@ -139,7 +160,7 @@ button.login {
     cursor: pointer;
     transition: .2s;
     border-style: none;
-    flex-basis: 40%;
+    width: 30%;
 }
 
 button.confirm {

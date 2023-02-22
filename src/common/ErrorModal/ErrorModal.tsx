@@ -16,9 +16,9 @@ const BackDrop = (props: Pick<Props, 'onConfirm'>) => (
 const ModalOverlay = (props: Props) => {
     return (
         <div className="modal">
-            <header className="modal-header">
+            <div className="modal-header">
                 <h2>{props.title}</h2>
-            </header>
+            </div>
             <div className="modal-content">
                 <p>{props.message}</p>
             </div>

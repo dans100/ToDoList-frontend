@@ -3,7 +3,7 @@ import React, {ReactNode} from 'react';
 interface Props {
     className: string;
     type: "button" | "submit" | "reset" | undefined;
-    onClick: () => void;
+    onClick?: () => void;
     children: ReactNode;
 }
 
