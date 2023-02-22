@@ -1,7 +1,16 @@
-import React, {ChangeEvent, FormEvent, useEffect, useState} from 'react';
+import React, {
+    ChangeEvent,
+    FormEvent,
+    useEffect,
+    useState
+} from 'react';
 import {useNavigate} from "react-router-dom";
 import Cookies from 'js-cookie';
 import {apiURL} from "../../config/api";
+import {ErrorModal} from "../../common/ErrorModal/ErrorModal";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faEye, faEyeSlash} from "@fortawesome/free-solid-svg-icons";
+
 
 export const Login = () => {
 
@@ -11,10 +20,13 @@ export const Login = () => {
         email: '',
         password: '',
     });
-    const [error, setError] = useState<string | null>(null);
+    const [error, setError] = useState<string>('');
+    const [isPwdVisible, setIsPwdVisible] = useState<boolean>(false);
     const token = Cookies.get('access_token');
 
+
     useEffect(() => {
+
         (async () => {
             const response = await fetch(`${apiURL}/login`, {
                 method: 'GET',
@@ -34,26 +46,31 @@ export const Login = () => {
 
     const sendForm = async (e: FormEvent) => {
         e.preventDefault();
-        try {
-            const response = await fetch(`${apiURL}/login`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(loginData)
-            });
-            const data = await response.json();
-            if (response.status === 200) {
-                await Cookies.set('access_token', data.token);
-                setIsLogged(true);
-            } else {
-                setError(data.message)
-            }
 
-        } catch (e) {
-            console.error(e);
+        if (loginData.password.trim().length === 0 || loginData.email.trim().length === 0) {
+            setError("Please enter a valid email and password (non-empty values).");
+            return;
         }
 
+        const response = await fetch(`${apiURL}/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(loginData)
+        });
+        const data = await response.json();
+        if (response.status === 200) {
+            await Cookies.set('access_token', data.token);
+            setIsLogged(true);
+        } else {
+            setError(data.message)
+        }
+
+        setLoginData({
+            email: '',
+            password: ''
+        });
     }
 
     const change = (e: ChangeEvent<HTMLInputElement>) => {
@@ -63,13 +80,21 @@ export const Login = () => {
         }))
     }
 
+    const handleTogglePassword = (e: React.MouseEvent) => {
+
+        e.preventDefault();
+        isPwdVisible ? setIsPwdVisible(false) : setIsPwdVisible(true);
+    }
+
     if (isLogged) {
         navigate('/list');
     }
 
     return (
         <>
-            <h2>LOGIN TO SEE TASKS</h2>
+            {error &&
+                    <ErrorModal onConfirm={() => setError('')} title="Invalid input" message={error}/>
+            }
             <form className='table' onSubmit={sendForm}>
                 <div className='box'>
                     <p className='line'>
@@ -87,19 +112,20 @@ export const Login = () => {
                         <label>
                             Password:
                             <input
-                                type="password"
+                                type={isPwdVisible ? 'text' : 'password'}
                                 name="password"
                                 value={loginData.password}
                                 onChange={change}
                             />
                         </label>
+                        <button onClick={handleTogglePassword} className="show-pwd"><FontAwesomeIcon
+                            icon={isPwdVisible ? faEyeSlash : faEye}/></button>
                     </p>
                     <p className='line'>
                         <button className='login'>Login</button>
                     </p>
                 </div>
             </form>
-            {{error} && <h2>{error}</h2>}
         </>
     )
 }
