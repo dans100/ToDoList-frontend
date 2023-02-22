@@ -2,8 +2,9 @@
 
 <h2>Project Screenshots:</h2>
 
+<img src="https://github.com/dans100/ToDoList-frontend/blob/main/public/View.png" alt="project-screenshot" width="800" height="383/">
+<img src="https://github.com/dans100/ToDoList-frontend/blob/main/public/Login.png" alt="project-screenshot" width="800" height="383/">
 
-<img src="https://github.com/dans100/ToDoList-frontend/blob/main/public/notfoundview.png" alt="project-screenshot" width="800" height="383/">
 
 <h2>🛠️ Installation Steps:</h2>
 
