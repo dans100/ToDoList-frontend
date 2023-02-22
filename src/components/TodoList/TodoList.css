@@ -1,11 +1,17 @@
 * {
     margin: 0;
     padding: 0;
-    font-family: Arial;
+    font-family: Arial, serif;
 }
 
-body {
-    background: linear-gradient(to right, #ff0000, #ffff00);
+html {
+    background-image: url("../../assets/background.png");
+    background-repeat: repeat;
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+
+
 }
 
 .table {
@@ -49,9 +55,8 @@ th.id, td.id {
 }
 
 th.title, td.title, label {
-    padding: 0 .5rem;
+
     flex-basis: 70%;
-    /*overflow-x: hidden;*/
     max-width: 70%;
     overflow-x: auto;
     white-space: pre-line;
@@ -111,11 +116,11 @@ input {
     box-sizing: border-box;
     width: 100%;
     background-color: #3E3364;
-    border-radius: 12px;
+    border-radius: 11px;
     line-height: 40px;
     padding: 0 60px 0 10px;
     color: white;
-    border-style: none;
+    border: 2px solid #1E1A3C;
 }
 
 button.submit {
@@ -123,7 +128,7 @@ button.submit {
     right: 20px;
     top: 50%;
     transform: translateY(-50%);
-    font-size: 30px;
+    font-size: 1.8rem;
     border: none;
     background-color: #3E3364;
     cursor: pointer;
