@@ -6,6 +6,7 @@ import {Spinner} from "../../common/Spinner/Spinner";
 import Cookies from "js-cookie";
 import {apiURL} from "../../config/api";
 import {ErrorModal} from "../../common/ErrorModal/ErrorModal";
+import {useNavigate} from "react-router-dom";
 
 
 interface Props {
@@ -23,6 +24,7 @@ export const TodoTableRow = (props: Props) => {
     const {task, id} = props.task;
     const [editTaskValue, setEditTaskValue] = useState(task);
     const token = Cookies.get('access_token');
+    const navigate = useNavigate();
 
     const deleteTask = async (e: React.MouseEvent) => {
 
@@ -39,8 +41,12 @@ export const TodoTableRow = (props: Props) => {
                 },
                 credentials: 'include',
             });
-            props.onChangeList();
-            await res.json();
+            if (res.status === 401) {
+                navigate('/');
+            } else {
+                props.onChangeList();
+                await res.json();
+            }
         } catch (e) {
             setError('Error occurred on server on task delete');
         } finally {
@@ -49,6 +55,11 @@ export const TodoTableRow = (props: Props) => {
     }
 
     const editTask = async (e: React.MouseEvent) => {
+
+        if(editTaskValue.length < 3 || editTaskValue.length > 55) {
+            setError('Task cannot be more than 3 characters and later than 55 characters');
+            return;
+        }
 
         try {
             setLoading(true);
@@ -61,8 +72,12 @@ export const TodoTableRow = (props: Props) => {
                 body: JSON.stringify({editTaskValue}),
                 credentials: 'include',
             });
-            props.onChangeList();
-            await res.json();
+            if (res.status === 401) {
+                navigate('/');
+            } else {
+                props.onChangeList();
+                await res.json();
+            }
         } catch (e) {
             setError('Error occurred on server on task update');
         } finally {
@@ -78,7 +93,7 @@ export const TodoTableRow = (props: Props) => {
             <tr className='line'>
                 <td className='id'>{props.index + 1}</td>
                 {isEditing ? <td className='title'>
-                    <input type="text" value={editTaskValue} onChange={(e) => setEditTaskValue(e.target.value)}/>
+                    <input type="text" maxLength={55} value={editTaskValue} onChange={(e) => setEditTaskValue(e.target.value)}/>
                     <FontAwesomeIcon className='pen' icon={faPen} onClick={editTask}/>
                 </td> : <td className='title'>{task}<FontAwesomeIcon className='pen' icon={faPen} onClick={()=> setIsEditing(true)}/>
                     <FontAwesomeIcon className='trash' icon={faTrash} onClick={deleteTask}/></td>}
