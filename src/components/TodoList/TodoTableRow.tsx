@@ -21,8 +21,8 @@ export const TodoTableRow = (props: Props) => {
     const [loading, setLoading] = useState<boolean>(false);
     const [isEditing, setIsEditing] = useState<boolean>(false);
     const [error, setError] = useState<string>('');
-    const {task, id} = props.task;
-    const [editTaskValue, setEditTaskValue] = useState(task);
+    const {description, id} = props.task;
+    const [editTaskValue, setEditTaskValue] = useState(description);
     const token = Cookies.get('access_token');
     const navigate = useNavigate();
 
@@ -95,10 +95,9 @@ export const TodoTableRow = (props: Props) => {
                 {isEditing ? <td className='title'>
                     <input type="text" maxLength={55} value={editTaskValue} onChange={(e) => setEditTaskValue(e.target.value)}/>
                     <FontAwesomeIcon className='pen' icon={faPen} onClick={editTask}/>
-                </td> : <td className='title'>{task}<FontAwesomeIcon className='pen' icon={faPen} onClick={()=> setIsEditing(true)}/>
+                </td> : <td className='title'>{description}<FontAwesomeIcon className='pen' icon={faPen} onClick={()=> setIsEditing(true)}/>
                     <FontAwesomeIcon className='trash' icon={faTrash} onClick={deleteTask}/></td>}
             </tr>
         </>
     )
 }
-

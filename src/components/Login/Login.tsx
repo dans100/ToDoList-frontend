@@ -10,7 +10,7 @@ import {apiURL} from "../../config/api";
 import {ErrorModal} from "../../common/ErrorModal/ErrorModal";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEye, faEyeSlash} from "@fortawesome/free-solid-svg-icons";
-
+import './Login.css';
 
 export const Login = () => {
 
@@ -43,7 +43,6 @@ export const Login = () => {
         })();
     }, []);
 
-
     const sendForm = async (e: FormEvent) => {
         e.preventDefault();
 
@@ -51,6 +50,7 @@ export const Login = () => {
             setError("Please enter a valid email and password (non-empty values).");
             return;
         }
+
 
         const response = await fetch(`${apiURL}/login`, {
             method: 'POST',
@@ -103,6 +103,7 @@ export const Login = () => {
                             <input
                                 type="email"
                                 name="email"
+                                placeholder='Email'
                                 value={loginData.email}
                                 onChange={change}
                             />
@@ -114,6 +115,7 @@ export const Login = () => {
                             <input
                                 type={isPwdVisible ? 'text' : 'password'}
                                 name="password"
+                                placeholder="Password"
                                 value={loginData.password}
                                 onChange={change}
                             />
@@ -123,6 +125,9 @@ export const Login = () => {
                     </p>
                     <p className='line'>
                         <button className='login'>Login</button>
+                    </p>
+                    <p>
+                        Don't have an account? <a href="/register">Register one!</a>
                     </p>
                 </div>
             </form>

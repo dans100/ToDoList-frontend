@@ -46,10 +46,10 @@ export const TodoList = () => {
     };
 
 
- useEffect(() => {
-         refreshList();
+    useEffect(() => {
+        refreshList();
 
- }, [search]);
+    }, [search]);
 
     return (
         <>
@@ -60,4 +60,3 @@ export const TodoList = () => {
         </>
     )
 }
-
