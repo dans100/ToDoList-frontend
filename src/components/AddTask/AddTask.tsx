@@ -16,7 +16,7 @@ interface Props {
 export const AddTask = (props: Props) => {
 
     const [task, setTask] = useState<TaskCreate>({
-        task: '',
+        description: '',
     });
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string>('');
@@ -25,8 +25,8 @@ export const AddTask = (props: Props) => {
 
     const sendForm = async (e: FormEvent) => {
         e.preventDefault();
-        if(task.task.length < 3 || task.task.length > 55) {
-            setError('Task cannot be more than 3 characters and later than 55 characters');
+        if(task.description.length < 3 || task.description.length > 55) {
+            setError('Task cannot be shorter than 3 characters and later than 55 characters');
             return;
         }
         setLoading(true);
@@ -55,7 +55,7 @@ export const AddTask = (props: Props) => {
         }
 
         setTask({
-            task: '',
+            description: '',
         });
     }
 
@@ -67,11 +67,11 @@ export const AddTask = (props: Props) => {
                 <input
                     type="text"
                     placeholder="Add task"
-                    value={task.task}
+                    value={task.description}
                     maxLength={55}
                     onChange={e => setTask({
                         ...task,
-                        task: e.target.value
+                        description: e.target.value
                     })}
                 />
                 <button type="submit" className='submit'><FontAwesomeIcon icon={faCircleUp}/></button>
