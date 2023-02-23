@@ -27,6 +27,7 @@ html {
     color: #fff;
     padding: 20px 10px;
     opacity: 75%;
+    animation: slide-down 300ms ease-out forwards;
 }
 
 
@@ -191,3 +192,14 @@ button.login:hover, button.confirm:hover {
     }
 
 }
+
+@keyframes slide-down {
+         from {
+             opacity: 0;
+             transform: translateY(-3rem);
+         }
+         to {
+             opacity: 75%;
+             transform: translateY(0);
+         }
+     }

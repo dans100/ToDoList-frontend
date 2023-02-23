@@ -101,4 +101,3 @@ export const TodoTableRow = (props: Props) => {
         </>
     )
 }
-

@@ -44,7 +44,7 @@ export const DeleteAllTask = (props: Props) => {
             }
 
         } catch (e) {
-           console.log(e);
+            console.log(e);
         } finally {
             setLoading(false);
         }
