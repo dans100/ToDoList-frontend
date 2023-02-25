@@ -24,9 +24,9 @@ export const DeleteAllTask = (props: Props) => {
             return;
         }
 
-        setLoading(true);
 
         try {
+        setLoading(true);
             const res = await fetch(`${apiURL}/list`, {
                 method: 'DELETE',
                 headers: {
@@ -38,13 +38,13 @@ export const DeleteAllTask = (props: Props) => {
 
             if (res.status === 401) {
                 navigate('/');
-            } else {
+            } else if (res.ok) {
                 props.onChangeList();
-                await res.json();
             }
 
         } catch (e) {
             console.log(e);
+            setError('Cannot delete list, try again later');
         } finally {
             setLoading(false);
         }
@@ -55,7 +55,7 @@ export const DeleteAllTask = (props: Props) => {
         <>
             {loading && <Spinner/>}
             {error && <ErrorModal onConfirm={() => setError('')} title='Invalid delete'
-                                  message='Cannot delete list, try again later'/>}
+                                  message={error}/>}
             <Button className='login' type='button' onClick={onDeleteAll}>Clear All</Button>
         </>
     )
