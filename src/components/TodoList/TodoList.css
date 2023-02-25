@@ -11,7 +11,6 @@ html {
     background-position: center;
     min-height: 100vh;
 
-
 }
 
 .table {
@@ -39,16 +38,23 @@ html {
 
 }
 
+
+
 .line {
     position: relative;
     display: flex;
-    justify-content: space-around;
-    margin-bottom: 1rem;
+    justify-content: space-between;
+    margin: 1rem;
     align-items: center;
 
 }
 
-th.id, td.id {
+.box p.line {
+    justify-content: center;
+}
+
+
+th.id {
     flex-basis: 20%;
     overflow-x: auto;
     white-space: pre-line;
@@ -69,6 +75,7 @@ td.title {
     position: relative;
     cursor: pointer;
     transition: .2s;
+
 }
 
 td.title:hover {
@@ -109,7 +116,7 @@ td.title svg.pen {
 
 td.form {
     flex-basis: 80%;
-    margin-top: 2rem;
+    margin: 2rem auto;
 }
 
 
@@ -152,6 +159,17 @@ td.logout {
     flex-basis: 40%;
 }
 
+.check {
+    font-size: 1.8em;
+    margin-left: calc(10% - .9rem);
+    cursor: pointer;
+    transition: .1s linear;
+}
+
+.check:hover {
+    transform: scale(1.2);
+}
+
 button.login {
     line-height: 40px;
     text-decoration: none;
@@ -162,6 +180,8 @@ button.login {
     transition: .2s;
     border-style: none;
     width: 30%;
+    margin-left: 10%;
+    margin-right: 10%;
 }
 
 button.confirm {
