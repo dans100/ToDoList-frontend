@@ -1,7 +1,3 @@
-import React, {FormEvent, useState} from "react";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCircleUp} from '@fortawesome/free-solid-svg-icons';
-import {TaskCreate} from "types";
 import {Spinner} from "../../common/Spinner/Spinner";
 import Cookies from "js-cookie";
 import {apiURL} from "../../config/api";
@@ -79,4 +75,3 @@ export const AddTask = (props: Props) => {
         </>
     )
 }
-
