@@ -3,6 +3,7 @@ import {TodoTableRow} from "./TodoTableRow";
 import {AddTask} from "../AddTask/AddTask";
 import {TaskEntity} from 'types';
 import {DeleteAllTask} from "../DeleteAllTask/DeleteAllTask";
+import {DeleteAllComplete} from "../DeleteAllTask/DeleteAllComplete";
 
 
 interface Props {
@@ -19,7 +20,7 @@ export const TodoTable = (props: Props) => {
         <table className='table'>
             <thead className='box'>
             <tr className='line'>
-                <th className='id'>Id</th>
+                <th className='id'>Status</th>
                 <th className='title'>Title</th>
             </tr>
             </thead>
@@ -29,6 +30,7 @@ export const TodoTable = (props: Props) => {
                 <td className="form"><AddTask onChangeList={props.onChangeList}/></td>
             </tr>
             <DeleteAllTask onChangeList={props.onChangeList}/>
+            <DeleteAllComplete onChangeList={props.onChangeList}/>
             </tbody>
 
         </table>
