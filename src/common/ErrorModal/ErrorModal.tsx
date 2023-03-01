@@ -9,8 +9,8 @@ interface Props {
     message: string;
 }
 
-const BackDrop = (props: Pick<Props, 'onConfirm'>) => (
-    <div className="backdrop" onClick={props.onConfirm} />
+export const BackDrop = (props: Pick<Props, 'onConfirm'>) => (
+    <div className="backdrop" onClick={props.onConfirm}/>
 );
 
 const ModalOverlay = (props: Props) => {

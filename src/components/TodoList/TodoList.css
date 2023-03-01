@@ -11,11 +11,27 @@ html {
     background-position: center;
     min-height: 100vh;
 
+}
+
+.main-title {
+    position: absolute;
+    color: white;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-transform: uppercase;
+    font-weight: 300;
+    letter-spacing: 2px;
+    padding: 5px;
+    animation:slide-down 300ms ease-out forwards;
+    animation-delay: 300ms;
+    opacity: 0;
 
 }
 
 .table {
-    margin: 20vh auto;
+
+    margin: 30vh auto 15vh;
     width: 80%;
     max-width: 800px;
     box-shadow: 0 1px 8px black;
@@ -27,7 +43,7 @@ html {
     color: #fff;
     padding: 20px 10px;
     opacity: 75%;
-    animation: slide-down 300ms ease-out forwards;
+    animation: slide-down-table 300ms ease-out forwards;
 }
 
 
@@ -39,16 +55,23 @@ html {
 
 }
 
+
+
 .line {
     position: relative;
     display: flex;
-    justify-content: space-around;
-    margin-bottom: 1rem;
+    justify-content: space-between;
+    margin: 1rem;
     align-items: center;
 
 }
 
-th.id, td.id {
+.box p.line {
+    justify-content: center;
+}
+
+
+th.id {
     flex-basis: 20%;
     overflow-x: auto;
     white-space: pre-line;
@@ -69,6 +92,7 @@ td.title {
     position: relative;
     cursor: pointer;
     transition: .2s;
+
 }
 
 td.title:hover {
@@ -109,7 +133,7 @@ td.title svg.pen {
 
 td.form {
     flex-basis: 80%;
-    margin-top: 2rem;
+    margin: 2rem auto;
 }
 
 
@@ -124,9 +148,8 @@ input {
     border: 2px solid #1E1A3C;
 }
 
-button.submit {
+button.submit, button.calendar {
     position: absolute;
-    right: 20px;
     top: 50%;
     transform: translateY(-50%);
     font-size: 1.8rem;
@@ -134,9 +157,18 @@ button.submit {
     background-color: #3E3364;
     cursor: pointer;
     transition: .2s;
+    color: white;
 }
 
-button.submit:hover {
+button.submit {
+    right: 5%;
+}
+
+button.calendar {
+    right: 15%;
+}
+
+button.submit:hover, button.calendar:hover {
     transform: translateY(-50%) scale(1.2);
 }
 
@@ -152,6 +184,17 @@ td.logout {
     flex-basis: 40%;
 }
 
+.check {
+    font-size: 1.8em;
+    margin-left: calc(10% - .9rem);
+    cursor: pointer;
+    transition: .1s linear;
+}
+
+.check:hover {
+    transform: scale(1.2);
+}
+
 button.login {
     line-height: 40px;
     text-decoration: none;
@@ -162,6 +205,8 @@ button.login {
     transition: .2s;
     border-style: none;
     width: 30%;
+    margin-left: 10%;
+    margin-right: 10%;
 }
 
 button.confirm {
@@ -182,6 +227,15 @@ button.login:hover, button.confirm:hover {
     transform: scale(1.05);
 }
 
+#root-portal {
+    position: fixed;
+    z-index: 100;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
 @keyframes rotate {
     0% {
         transform: translateY(50%) rotate(25deg);
@@ -193,13 +247,24 @@ button.login:hover, button.confirm:hover {
 
 }
 
-@keyframes slide-down {
+@keyframes slide-down-table {
          from {
              opacity: 0;
-             transform: translateY(-3rem);
+             margin: 28vh auto 17vh;
          }
          to {
              opacity: 75%;
-             transform: translateY(0);
+             margin: 30vh auto 15vh;
          }
      }
+
+@keyframes slide-down {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -60%);
+    }
+    to {
+        opacity: 75%;
+        transform: translate(-50%, -50%);
+    }
+}
