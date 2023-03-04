@@ -1,0 +1,164 @@
+.table {
+    margin: 30vh auto 15vh;
+    width: 80%;
+    max-width: 800px;
+    box-shadow: 0 1px 8px black;
+    background-color: #1E1A3C;
+    border-radius: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    color: #fff;
+    padding: 20px 10px;
+    opacity: 75%;
+    animation: slide-down-table 300ms ease-out forwards;
+}
+
+.box {
+    text-align: center;
+    flex-basis: 80%;
+    line-height: 40px;
+    margin-bottom: 10px;
+    max-width: 80%;
+
+}
+
+.line {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem;
+    align-items: center;
+}
+
+.check {
+    font-size: 1.8em;
+    margin-left: calc(7.5% - .9rem);
+    cursor: pointer;
+    transition: .1s linear;
+}
+
+.check:hover {
+    transform: scale(1.2);
+}
+
+.box p.line {
+    justify-content: center;
+}
+
+th.id {
+    flex-basis: 15%;
+    overflow-x: auto;
+    white-space: pre-line;
+    word-wrap: break-word;
+}
+
+th.title, td.title, label {
+    flex-basis: 70%;
+    max-width: 70%;
+    overflow-x: auto;
+    white-space: pre-line;
+    word-wrap: break-word;
+
+}
+
+th.title, td.title {
+    padding: 0 65px 0 5px;
+}
+
+td.title {
+    position: relative;
+    cursor: pointer;
+    transition: .2s;
+}
+
+td.title:hover {
+    background-color: #fff;
+    color: #000;
+    transform: scale(1.05);
+}
+
+th, td {
+    position: relative;
+    background-color: #3E3364;
+    border-radius: 12px;
+    box-shadow: 0 0 2px black;
+}
+
+td.title svg {
+    position: absolute;
+    height: 1.2rem;
+    right: 2rem;
+    transform: translateY(50%);
+}
+
+td.title svg.pen {
+    right: 4rem;
+}
+
+td.form {
+    flex-basis: 80%;
+    margin: 2rem auto;
+}
+
+td.title svg {
+    transition: .2s linear;
+}
+
+td.title svg:hover {
+    animation: rotate .2s linear;
+}
+
+@keyframes rotate {
+    0% {
+        transform: translateY(50%) rotate(25deg);
+    }
+
+    100% {
+        transform: translateY(50%) rotate(-25deg);
+    }
+}
+
+@keyframes slide-down-table {
+    from {
+        opacity: 0;
+        margin: 28vh auto 17vh;
+    }
+    to {
+        opacity: 75%;
+        margin: 30vh auto 15vh;
+    }
+}
+
+@media (max-width: 768px) {
+    .table {
+        font-size: 0.7rem;
+    }
+
+    .box {
+        line-height: 30px;
+    }
+
+    .check {
+        font-size: 1.5rem;
+    }
+
+    td.title svg {
+        height: 1rem;
+        right: 1rem;
+    }
+
+    td.title svg.pen {
+        left: 1rem;
+    }
+
+    th.id {
+        flex-basis: 15%;
+        font-size: .6rem;
+        border-radius: 50%;
+    }
+
+    th.title, td.title {
+        padding: 0 12px 0 12px;
+    }
+}

@@ -4,7 +4,7 @@
     left: 3%;
     height: 2rem;
     width: 5.4rem;
-    z-index: 10000;
+    z-index: 10;
 }
 
 .dark-mode label {
@@ -19,7 +19,7 @@
 }
 
 .dark-mode label:after {
-    content:"";
+    content: "";
     width: 1.8rem;
     height: 1.8rem;
     position: absolute;
@@ -61,9 +61,33 @@
     left: 2.2rem;
     top: .3rem;
 }
+
 .dark-mode input:checked + label svg.moon path {
     fill: white;
 }
 
 
+@media (max-width: 768px) {
+    .dark-mode {
+        height: 1.5rem;
+        width: 4.8rem;
+    }
 
+    .dark-mode label:after {
+        height: 1.3rem;
+        width: 1.3rem;
+    }
+
+    .dark-mode label svg.moon {
+        left: 2rem;
+        top: .1rem;
+    }
+
+    .dark-mode label:active:after {
+        width: 1.6rem;
+    }
+
+    .dark-mode input:checked + label:after {
+        left: 3.2rem;
+    }
+}

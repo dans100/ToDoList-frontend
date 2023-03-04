@@ -1,0 +1,27 @@
+.delete-btn {
+    line-height: 40px;
+    text-decoration: none;
+    color: white;
+    border-radius: 12px;
+    background-color: #3E3364;
+    cursor: pointer;
+    transition: .2s;
+    border-style: none;
+    width: 30%;
+    margin: 0 10px;
+}
+
+.delete-btn:hover {
+    background-color: #fff;
+    color: #000;
+    transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+    .delete-btn {
+        line-height: 30px;
+        width: 50%;
+        margin: 10px;
+        font-size: 0.7rem;
+    }
+}
