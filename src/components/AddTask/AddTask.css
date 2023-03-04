@@ -1,0 +1,50 @@
+input.add-task {
+    box-sizing: border-box;
+    width: 100%;
+    background-color: #3E3364;
+    border-radius: 11px;
+    line-height: 40px;
+    padding: 0 105px 0 10px;
+    color: white;
+    border: 2px solid #1E1A3C;
+}
+
+button.submit, button.calendar {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.8rem;
+    border: none;
+    background-color: #3E3364;
+    cursor: pointer;
+    transition: .2s;
+    color: white;
+}
+
+button.submit {
+    right: 5%;
+}
+
+button.calendar {
+    right: 15%;
+}
+
+button.submit:hover, button.calendar:hover {
+    transform: translateY(-50%) scale(1.2);
+}
+
+@media (max-width: 768px) {
+    input.add-task {
+        line-height: 30px;
+        padding: 0 65px 0 10px;
+        font-size: 0.7rem;
+    }
+
+    button.submit, button.calendar {
+        font-size: 1.5rem;
+    }
+
+    button.calendar {
+        right: 22%;
+    }
+}

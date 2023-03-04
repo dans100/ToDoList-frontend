@@ -11,11 +11,23 @@
     color: white;
     text-align: center;
     line-height: 6vh;
-    z-index: 1000;
+    z-index: 10;
+}
 
+
+.footer-app p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .footer-app p span {
-    margin: 0 5px;
+    margin-left: 10px;
+}
 
+
+@media (max-width: 768px) {
+    .footer-app {
+        font-size: .8rem;
+    }
 }

@@ -4,23 +4,22 @@
     left: 0;
     width: 100%;
     height: 100vh;
-    z-index: 10;
+    z-index: 100;
     background: rgba(0, 0, 0, 0.75);
 
 }
-
 
 .modal {
     position: fixed;
     top: 30vh;
     left: 10%;
     width: 80%;
-    z-index: 100;
+    z-index: 1000;
     overflow: hidden;
     background: #1E1A3C;
     box-shadow: 0 1px 8px black;
     border-radius: 12px;
-    opacity: 75%;
+
 }
 
 .modal-header {
@@ -44,9 +43,38 @@
     justify-content: flex-end;
 }
 
-@media (min-width: 768px) {
+button.confirm {
+    line-height: 40px;
+    text-decoration: none;
+    color: white;
+    border-radius: 12px;
+    background-color: #3E3364;
+    cursor: pointer;
+    transition: .2s;
+    border-style: none;
+    flex-basis: 30%;
+}
+
+button.confirm:hover {
+    background-color: #fff;
+    color: #000;
+    transform: scale(1.05);
+}
+
+@media (min-width: 769px) {
     .modal {
         left: calc(50% - 20rem);
         width: 40rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .modal {
+        font-size: .7rem;
+    }
+
+    button.confirm {
+        font-size: .7rem;
+        line-height: 30px;
     }
 }

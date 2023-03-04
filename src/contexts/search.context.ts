@@ -1,6 +1,8 @@
-import React from "react";
+import React from 'react';
 
 export const SearchContext = React.createContext({
-    search: '',
-    setSearch: (s:string) => {},
-})
+  search: '',
+  setSearch: (s: string) => {},
+  setSearchError: (e: boolean) => {},
+  searchError: false,
+});
