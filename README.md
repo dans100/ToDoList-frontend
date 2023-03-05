@@ -6,6 +6,8 @@
 
 [https://todolist.networkmanager.pl/](https://todolist.networkmanager.pl/)
 
+<p>Login without creating an account: e-mail: admin@admin.com password: admin</p>
+
 <h2>Project Screenshots:</h2>
 
 <img src="https://raw.githubusercontent.com/dans100/ToDoList-frontend/main/public/login.png" alt="project-screenshot" width="800" height="385/">
