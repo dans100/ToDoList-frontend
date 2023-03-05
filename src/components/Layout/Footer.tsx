@@ -7,7 +7,7 @@ export const Footer = () => {
   return (
     <footer className="footer-app">
       <p>
-        &copy; 2023 dans100
+        <span>&copy; 2023 dans100</span>
         <span>
           <a href="https://github.com/dans100" target="_blank" rel="noreferrer">
             <GitHubIcon />

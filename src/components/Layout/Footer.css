@@ -1,6 +1,5 @@
 .footer-app {
     position: fixed;
-    padding: 0 2rem;
     left: 0;
     bottom: 0;
     width: 100%;
@@ -25,9 +24,16 @@
     margin-left: 10px;
 }
 
+.footer-app svg {
+    display: block;
+}
 
 @media (max-width: 768px) {
     .footer-app {
         font-size: .8rem;
+    }
+
+    .footer-app svg {
+        font-size: 1.3rem;
     }
 }
