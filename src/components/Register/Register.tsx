@@ -145,6 +145,7 @@ export const Register = () => {
               />
             </label>
             <button
+              type="button"
               onClick={handleTogglePassword}
               className="show-pwd-register"
             >
@@ -165,7 +166,9 @@ export const Register = () => {
             </label>
           </p>
           <p className="line">
-            <button className="login">Register</button>
+            <button type="submit" className="login">
+              Register
+            </button>
           </p>
           <p>
             Already have an account? <a href="/">Login</a>
