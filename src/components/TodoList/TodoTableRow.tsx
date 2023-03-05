@@ -29,9 +29,7 @@ export const TodoTableRow = (props: Props) => {
   const navigate = useNavigate();
 
   const deleteTask = async (e: React.MouseEvent) => {
-    if (
-      !window.confirm(`Are you sure to delete task of id ${props.index + 1}`)
-    ) {
+    if (!window.confirm(`Are you sure to delete task: ${description}`)) {
       return;
     }
     try {
@@ -124,6 +122,10 @@ export const TodoTableRow = (props: Props) => {
     isComplete ? setIsComplete(0) : setIsComplete(1);
   };
 
+  const handleEditClick = () => {
+    setIsEditing(true);
+  };
+
   return (
     <>
       {error && (
@@ -144,12 +146,19 @@ export const TodoTableRow = (props: Props) => {
         {isEditing ? (
           <td className="title">
             <input
+              autoFocus={true}
+              className="edit"
               type="text"
               maxLength={55}
               value={editTaskValue}
               onChange={(e) => setEditTaskValue(e.target.value)}
             />
-            <FontAwesomeIcon className="pen" icon={faPen} onClick={editTask} />
+            <FontAwesomeIcon
+              className="pen"
+              style={{ color: 'green' }}
+              icon={faPen}
+              onClick={editTask}
+            />
           </td>
         ) : (
           <td
@@ -168,7 +177,7 @@ export const TodoTableRow = (props: Props) => {
               className="pen"
               style={{ pointerEvents: isComplete ? 'none' : undefined }}
               icon={faPen}
-              onClick={() => setIsEditing(true)}
+              onClick={handleEditClick}
             />
             <FontAwesomeIcon
               className="trash"
