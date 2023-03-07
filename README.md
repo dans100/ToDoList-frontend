@@ -6,7 +6,7 @@
 
 [https://todolist.networkmanager.pl/](https://todolist.networkmanager.pl/)
 
-<p>Login without creating an account: e-mail: admin@admin.com password: admin</p>
+<p>Login without creating an account: e-mail: admin@admin.com password: admin12</p>
 
 <h2>Project Screenshots:</h2>
 
