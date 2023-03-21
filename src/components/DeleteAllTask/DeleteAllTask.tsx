@@ -1,58 +1,44 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button } from '../../common/Button/Button';
 import { apiURL } from '../../config/api';
-import Cookies from 'js-cookie';
 import { ErrorModal } from '../../common/ErrorModal/ErrorModal';
 import { Spinner } from '../../common/Spinner/Spinner';
-import { useNavigate } from 'react-router-dom';
 import './DeleteAllTask.css';
+import { useHttp } from '../../hooks/use-http';
+import { TaskEntity } from 'types';
 
 interface Props {
   onChangeList: () => void;
 }
 
 export const DeleteAllTask = (props: Props) => {
-  const [error, setError] = useState<string>('');
-  const [loading, setLoading] = useState<boolean>(false);
-  const token = Cookies.get('access_token');
-  const navigate = useNavigate();
+  const { isLoading, error, setError, sendRequest } = useHttp();
+
+  const refreshList = (data: TaskEntity[]) => {
+    props.onChangeList();
+  };
 
   const onDeleteAll = async () => {
     if (!window.confirm(`Are you sure to clear list`)) {
       return;
     }
 
-    try {
-      setLoading(true);
-      const res = await fetch(`${apiURL}/list`, {
+    sendRequest(
+      {
+        url: `${apiURL}/list`,
         method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        credentials: 'include',
-      });
-
-      if (res.status === 401) {
-        navigate('/');
-      } else if (res.ok) {
-        props.onChangeList();
-      }
-    } catch (e) {
-      console.log(e);
-      setError('Cannot delete list, try again later');
-    } finally {
-      setLoading(false);
-    }
+      },
+      refreshList
+    );
   };
 
   return (
     <>
-      {loading && <Spinner />}
+      {isLoading && <Spinner />}
       {error && (
         <ErrorModal
           onConfirm={() => setError('')}
-          title="Invalid delete"
+          title="Failed to remove tasks from list"
           message={error}
         />
       )}

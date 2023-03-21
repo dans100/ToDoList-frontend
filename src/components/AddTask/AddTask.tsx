@@ -1,13 +1,13 @@
 import { Spinner } from '../../common/Spinner/Spinner';
-import Cookies from 'js-cookie';
 import { apiURL } from '../../config/api';
 import { ErrorModal } from '../../common/ErrorModal/ErrorModal';
-import { useNavigate } from 'react-router-dom';
 import React, { FormEvent, SyntheticEvent, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarDays, faCircleUp } from '@fortawesome/free-solid-svg-icons';
 import { Calendar } from '../Calendar/Calendar';
 import './AddTask.css';
+import { useHttp } from '../../hooks/use-http';
+import { TaskEntity } from 'types';
 
 interface Props {
   onChangeList: () => void;
@@ -16,11 +16,8 @@ interface Props {
 export const AddTask = (props: Props) => {
   const [description, setDescription] = useState<string>('');
   const [deadline, setDeadline] = useState<Date | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string>('');
   const [openDatePicker, setOpenDatePicker] = useState<boolean>(false);
-  const token = Cookies.get('access_token');
-  const navigate = useNavigate();
+  const { isLoading, error, setError, sendRequest } = useHttp();
 
   const calendarHandler = async (e: SyntheticEvent) => {
     e.preventDefault();
@@ -32,46 +29,36 @@ export const AddTask = (props: Props) => {
     setOpenDatePicker(!openDatePicker);
   };
 
+  const refreshList = (data: TaskEntity[]) => {
+    props.onChangeList();
+  };
+
   const sendForm = async (e: FormEvent) => {
     e.preventDefault();
     if (error) {
       return;
     }
-    try {
-      if (description.length < 3 || description.length > 55) {
-        setError(
-          'Task cannot be shorter than 3 characters and later than 55 characters'
-        );
+    if (description.length < 3 || description.length > 55) {
+      setError(
+        'Task cannot be shorter than 3 characters and later than 55 characters'
+      );
+      return;
+    }
+    if (!deadline) {
+      if (!window.confirm('Want to add a task without deadline?')) {
         return;
       }
-      if (!deadline) {
-        if (!window.confirm('Want to add a task without deadline?')) {
-          return;
-        }
-      }
-      setLoading(true);
-      const res = await fetch(`${apiURL}/list`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ description, deadline }),
-        credentials: 'include',
-      });
-      if (res.status === 401) {
-        navigate('/');
-      } else {
-        props.onChangeList();
-        await res.json();
-      }
-    } catch (e) {
-      setError('Error occurred on server on task add');
-    } finally {
-      setLoading(false);
-      setDeadline(null);
-      setDescription('');
     }
+    sendRequest(
+      {
+        url: `${apiURL}/list`,
+        method: 'POST',
+        body: { description, deadline },
+      },
+      refreshList
+    );
+    setDescription('');
+    setDeadline(null);
   };
 
   return (
@@ -83,7 +70,7 @@ export const AddTask = (props: Props) => {
           message={error}
         />
       )}
-      {loading && <Spinner />}
+      {isLoading && <Spinner />}
       {openDatePicker && (
         <Calendar
           onCloseDatePicker={calendarHandler}

@@ -5,21 +5,17 @@ import './Deadlines.css';
 
 import moment from 'moment';
 import { SearchContext } from '../../contexts/search.context';
-import Cookies from 'js-cookie';
-import { useNavigate } from 'react-router-dom';
 import { apiURL } from '../../config/api';
 import { ErrorModal } from '../../common/ErrorModal/ErrorModal';
 import { Spinner } from '../../common/Spinner/Spinner';
 import { TaskEntity } from 'types';
+import { useHttp } from '../../hooks/use-http';
 
 export const Deadlines = () => {
   const { search, setSearchError } = useContext(SearchContext);
   const [selectedTask, setSelectedTask] = useState<TaskEntity | null>(null);
   const [list, setList] = useState<TaskEntity[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string>('');
-  const token = Cookies.get('access_token');
-  const navigate = useNavigate();
+  const { isLoading, error, setError, sendRequest } = useHttp();
 
   const clickHandler = (date: Date) => {
     const taskWithDeadline: TaskEntity | undefined = list.find((task) =>
@@ -32,29 +28,17 @@ export const Deadlines = () => {
     }
   };
 
+  const updateList = (fetchData: TaskEntity[]) => {
+    setList(fetchData);
+  };
+
   const refreshList = async () => {
-    setIsLoading(true);
-    try {
-      const res = await fetch(`${apiURL}/list/${search}`, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        credentials: 'include',
-      });
-      if (res.status === 401) {
-        navigate('/');
-      } else {
-        const data = await res.json();
-        setList(data);
-        setIsLoading(false);
-      }
-    } catch (e) {
-      setError('Error occurred by get api data');
-      setSearchError(true);
-    } finally {
-      setIsLoading(false);
-    }
+    sendRequest(
+      {
+        url: `${apiURL}/list/${search}`,
+      },
+      updateList
+    );
   };
 
   useEffect(() => {

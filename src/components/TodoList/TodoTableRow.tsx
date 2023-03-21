@@ -7,10 +7,9 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { TaskEntity } from 'types';
 import { Spinner } from '../../common/Spinner/Spinner';
-import Cookies from 'js-cookie';
 import { apiURL } from '../../config/api';
 import { ErrorModal } from '../../common/ErrorModal/ErrorModal';
-import { useNavigate } from 'react-router-dom';
+import { useHttp } from '../../hooks/use-http';
 
 interface Props {
   task: TaskEntity;
@@ -19,40 +18,27 @@ interface Props {
 }
 
 export const TodoTableRow = (props: Props) => {
-  const [loading, setLoading] = useState<boolean>(false);
   const [isEditing, setIsEditing] = useState<boolean>(false);
-  const [error, setError] = useState<string>('');
   const { description, id, isCompleted } = props.task;
   const [isComplete, setIsComplete] = useState<number>(isCompleted);
   const [editTaskValue, setEditTaskValue] = useState(description);
-  const token = Cookies.get('access_token');
-  const navigate = useNavigate();
+  const { isLoading, error, setError, sendRequest } = useHttp();
+
+  const refreshList = (data: TaskEntity[]) => {
+    props.onChangeList();
+  };
 
   const deleteTask = async (e: React.MouseEvent) => {
     if (!window.confirm(`Are you sure to delete task: ${description}`)) {
       return;
     }
-    try {
-      setLoading(true);
-      const res = await fetch(`${apiURL}/list/${id}`, {
+    sendRequest(
+      {
+        url: `${apiURL}/list/${id}`,
         method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        credentials: 'include',
-      });
-      if (res.status === 401) {
-        navigate('/');
-      } else {
-        props.onChangeList();
-        await res.json();
-      }
-    } catch (e) {
-      setError('Error occurred on server on task delete');
-    } finally {
-      setLoading(false);
-    }
+      },
+      refreshList
+    );
   };
 
   const editTask = async (e: React.MouseEvent) => {
@@ -64,56 +50,29 @@ export const TodoTableRow = (props: Props) => {
       return;
     }
 
-    try {
-      setLoading(true);
-      const res = await fetch(`${apiURL}/list/${id}`, {
+    sendRequest(
+      {
+        url: `${apiURL}/list/${id}`,
         method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ editTaskValue }),
-        credentials: 'include',
-      });
-      if (res.status === 401) {
-        navigate('/');
-      } else {
-        props.onChangeList();
-        await res.json();
-      }
-    } catch (e) {
-      setError('Error occurred on server on task update');
-    } finally {
-      setIsEditing(false);
-      setLoading(false);
-    }
+        body: { editTaskValue },
+      },
+      refreshList
+    );
+    setIsEditing(false);
   };
 
   useEffect(() => {
     const updateTaskStatus = async () => {
-      try {
-        setLoading(true);
-        const res = await fetch(`${apiURL}/list/${id}/status`, {
+      sendRequest(
+        {
+          url: `${apiURL}/list/${id}/status`,
           method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({ isComplete }),
-          credentials: 'include',
-        });
-        if (res.status === 401) {
-          navigate('/');
-        } else {
-          props.onChangeList();
-          await res.json();
-        }
-      } catch (e) {
-        setError('Error occurred on server on task update');
-      } finally {
-        setLoading(false);
-      }
+          body: { isComplete },
+        },
+        refreshList
+      );
     };
+
     updateTaskStatus();
   }, [isComplete]);
 
@@ -135,7 +94,7 @@ export const TodoTableRow = (props: Props) => {
           message={error}
         />
       )}
-      {loading && <Spinner />}
+      {isLoading && <Spinner />}
       <tr className="line">
         <FontAwesomeIcon
           className="check"
