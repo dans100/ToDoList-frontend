@@ -11,8 +11,8 @@ export const Register = () => {
   const [registerData, setRegisterData] = useState({
     username: '',
     email: '',
-    password: '',
-    confirmPassword: '',
+    pwd: '',
+    confirmPwd: '',
   });
   const [error, setError] = useState<string>('');
   const [isPwdVisible, setIsPwdVisible] = useState<boolean>(false);
@@ -49,8 +49,8 @@ export const Register = () => {
       return;
     }
     if (
-      registerData.password.trim().length < 7 ||
-      registerData.password.trim().length > 60
+      registerData.pwd.trim().length < 7 ||
+      registerData.pwd.trim().length > 60
     ) {
       setError(
         'Password cannot be shorter than 7 characters and later than 60 characters'
@@ -58,8 +58,9 @@ export const Register = () => {
       return;
     }
 
-    if (registerData.password.trim() !== registerData.confirmPassword.trim()) {
+    if (registerData.pwd.trim() !== registerData.confirmPwd.trim()) {
       setError('Passwords is incorrect');
+      return;
     }
 
     setLoading(true);
@@ -73,6 +74,7 @@ export const Register = () => {
       });
 
       const data = await response.json();
+      console.log(response.status);
 
       if (response.status === 201) {
         setSuccessRegister(true);
@@ -138,9 +140,9 @@ export const Register = () => {
               <input
                 className="register"
                 type={isPwdVisible ? 'text' : 'password'}
-                name="password"
+                name="pwd"
                 placeholder="Password"
-                value={registerData.password}
+                value={registerData.pwd}
                 onChange={onChangeInput}
               />
             </label>
@@ -158,9 +160,9 @@ export const Register = () => {
               <input
                 className="register"
                 type={isPwdVisible ? 'text' : 'password'}
-                name="confirmPassword"
+                name="confirmPwd"
                 placeholder="Confirm password"
-                value={registerData.confirmPassword}
+                value={registerData.confirmPwd}
                 onChange={onChangeInput}
               />
             </label>

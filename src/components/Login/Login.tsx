@@ -1,6 +1,5 @@
 import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Cookies from 'js-cookie';
 import { apiURL } from '../../config/api';
 import { ErrorModal } from '../../common/ErrorModal/ErrorModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -12,11 +11,10 @@ export const Login = () => {
   const [isLogged, setIsLogged] = useState<boolean>(false);
   const [loginData, setLoginData] = useState({
     email: '',
-    password: '',
+    pwd: '',
   });
   const [error, setError] = useState<string>('');
   const [isPwdVisible, setIsPwdVisible] = useState<boolean>(false);
-  const token = Cookies.get('access_token');
 
   useEffect(() => {
     (async () => {
@@ -24,7 +22,6 @@ export const Login = () => {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
         },
         credentials: 'include',
       });
@@ -41,7 +38,7 @@ export const Login = () => {
     }
     try {
       if (
-        loginData.password.trim().length === 0 ||
+        loginData.pwd.trim().length === 0 ||
         loginData.email.trim().length === 0
       ) {
         setError('Please enter a valid email and password');
@@ -53,20 +50,20 @@ export const Login = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(loginData),
+        credentials: 'include',
       });
       const data = await response.json();
-      if (response.status === 200) {
-        await Cookies.set('access_token', data.token);
+      if (response.ok) {
         setIsLogged(true);
       } else {
-        setError(data.message);
+        setError(data.error);
       }
     } catch (e) {
       console.log(e);
     } finally {
       setLoginData({
         email: '',
-        password: '',
+        pwd: '',
       });
     }
   };
@@ -118,9 +115,9 @@ export const Login = () => {
               <input
                 className="login-data"
                 type={isPwdVisible ? 'text' : 'password'}
-                name="password"
+                name="pwd"
                 placeholder="Password"
-                value={loginData.password}
+                value={loginData.pwd}
                 onChange={change}
                 disabled={!!error}
               />
