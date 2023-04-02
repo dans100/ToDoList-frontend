@@ -61,24 +61,19 @@ export const TodoTableRow = (props: Props) => {
     setIsEditing(false);
   };
 
-  useEffect(() => {
-    const updateTaskStatus = async () => {
-      sendRequest(
-        {
-          url: `${apiURL}/list/${id}/status`,
-          method: 'PATCH',
-          body: { isComplete },
-        },
-        refreshList
-      );
-    };
-
-    updateTaskStatus();
-  }, [isComplete]);
-
   const onCheckTask = async (e: React.MouseEvent) => {
     e.preventDefault();
-    isComplete ? setIsComplete(0) : setIsComplete(1);
+    const newIsComplete = isComplete ? 0 : 1;
+    setIsComplete(newIsComplete);
+
+    sendRequest(
+      {
+        url: `${apiURL}/list/${id}/status`,
+        method: 'PATCH',
+        body: { isCompleted: newIsComplete },
+      },
+      refreshList
+    );
   };
 
   const handleEditClick = () => {
@@ -90,7 +85,7 @@ export const TodoTableRow = (props: Props) => {
       {error && (
         <ErrorModal
           onConfirm={() => setError('')}
-          title={'Invalid task delete'}
+          title={'Error'}
           message={error}
         />
       )}
