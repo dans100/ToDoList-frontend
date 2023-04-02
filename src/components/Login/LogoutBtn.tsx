@@ -20,7 +20,7 @@ export const LogoutBtn = () => {
         body: JSON.stringify({}),
         credentials: 'include',
       });
-      if (response.status === 204) {
+      if (response.ok) {
         navigate('/');
       } else {
         navigate('/list');
