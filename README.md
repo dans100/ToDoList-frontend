@@ -10,7 +10,7 @@
 
 <h2>Project Screenshots:</h2>
 
-<img src="https://raw.githubusercontent.com/dans100/participle-theme/assets/screenshot.png" alt="project-screenshot" width="887" height="918/">
+<img src="https://raw.githubusercontent.com/dans100/participle-theme/blob/main/assets/screenshot.png" alt="project-screenshot" width="887" height="918/">
 
   
 <h2>💻 Built with</h2>
